@@ -1,14 +1,14 @@
 using Bunit;
 using FinalProject.Pages;
 using System.Data;
-
+using FinalProject;
 namespace TestProject
 {
-	public class UnitTest1 : TestContext
+    public class UnitTest1 : TestContext
 
 
 
-	{
+    {
 
         [Fact] // Testing the function of adding items to the shopping list
         public void ShoppingList_AddToList_AddsItemToList()
@@ -67,8 +67,8 @@ namespace TestProject
         }
 
     }
-}
 
+}
 
 
 

@@ -12,7 +12,7 @@
         @foreach (var toBuy in shoppingList)
         {
                             <li>
-                                <input type="checkbox"/> 
+                                <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneList.Add(toBuy))" />
                                 <input type="text" @bind="toBuy.Title" />
 
                                 <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
@@ -24,6 +24,22 @@
     </ul>
 </div> 
 
+<h3>In cart</h3>
+<ul>
+    @foreach (var toBuy in IsDoneList)
+    {
+
+        <li>
+            <p>
+                @toBuy.Amount
+                @toBuy.Title
+            </p>
+            <button class="removeButton" @onclick="@(() => IsDoneList.Remove(toBuy))"> X </button>
+
+        </li>
+    }
+</ul>
+
 
 
 @code
@@ -31,6 +47,7 @@
 
 
     private List<ListItem> shoppingList = new();
+    private List<ListItem> IsDoneList = new();
 
     private string? _inputValue { get; set; }
 
