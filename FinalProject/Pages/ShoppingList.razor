@@ -1,0 +1,31 @@
+﻿@page "/ShoppingList"
+
+
+<h1>Shoppinglist</h1>
+
+<input class="inputField" placeholder="Add item" @bind="_inputValue" />
+<button class="add-button" @onclick="AddToList">Add to list</button>
+
+@code
+{
+
+
+    private List<ListItem> shoppingList = new();
+   
+
+    private string? _inputValue { get; set; }
+
+
+    private void AddToList()
+    {
+        if (!string.IsNullOrWhiteSpace(_inputValue))
+        {
+            shoppingList.Add(new ListItem { Title = _inputValue });
+            _inputValue = string.Empty;
+        }
+
+
+
+    }
+
+}
