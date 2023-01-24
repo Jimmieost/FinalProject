@@ -28,7 +28,24 @@ namespace TestProject
             Assert.Contains("Test item", shoppingListItems[0].InnerHtml); //Checking if it's added to the list
         }
 
-       
+        [Fact] // Testing the function to remove items from the shopping list
+        public void ShoppingList_RemovingItem_RemovesItemFromList()
+        {
+            // Arrange
+            var component = RenderComponent<ShoppingList>();
+            var inputField = component.Find("input.inputField");
+            var addButton = component.Find("button.add-button");
+            inputField.Change("Test item");
+            addButton.Click(); // Adding something to the list
+            var removeButton = component.Find("button.removeitem");
+
+            // Act
+            removeButton.Click(); // Removing from the list
+
+            // Assert
+            var shoppingListItems = component.FindAll("li").ToList();
+            Assert.Empty(shoppingListItems); // Checking if it's removed
+        }
 
     }
 }
