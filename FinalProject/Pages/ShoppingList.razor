@@ -6,6 +6,20 @@
 <input class="inputField" placeholder="Add item" @bind="_inputValue" />
 <button class="add-button" @onclick="AddToList">Add to list</button>
 
+<div class="shoppingList">
+    <h3>Shopping list items</h3>
+    <ul>
+        @foreach (var toBuy in shoppingList)
+        {
+                            <li>
+                                <input type="checkbox"/>
+                                <input type="text" @bind="toBuy.Title" />
+                                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
+                             </li>
+        }
+    </ul>
+</div> 
+
 @code
 {
 
