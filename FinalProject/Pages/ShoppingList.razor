@@ -1,4 +1,4 @@
-﻿@page "/ShoppingList"
+﻿@page "/shoppingList"
 
 
 <h1>Shoppinglist</h1>
@@ -12,20 +12,25 @@
         @foreach (var toBuy in shoppingList)
         {
                             <li>
-                                <input type="checkbox"/>
+                                <input type="checkbox"/> 
                                 <input type="text" @bind="toBuy.Title" />
+
+                                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
+                                <p class="amount"> @toBuy.Amount </p>
+                                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
                                 <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
-                             </li>
+                            </li>
         }
     </ul>
 </div> 
+
+
 
 @code
 {
 
 
     private List<ListItem> shoppingList = new();
-   
 
     private string? _inputValue { get; set; }
 
