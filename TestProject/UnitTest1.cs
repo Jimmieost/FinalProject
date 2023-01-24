@@ -47,6 +47,25 @@ namespace TestProject
             Assert.Empty(shoppingListItems); // Checking if it's removed
         }
 
+        [Fact]
+        public void ShoppingList_IncrementingAmount_IncreasesAmount()
+        {
+            // Arrange
+            var component = RenderComponent<ShoppingList>();
+            var inputField = component.Find("input.inputField");
+            var addButton = component.Find("button.add-button");
+            inputField.Change("Test item");
+            addButton.Click();
+            var incrementButton = component.Find("button.increment");
+
+            // Act
+            incrementButton.Click();
+
+            // Assert
+            var amount = component.Find("p.amount").InnerHtml;
+            Assert.Equal("1", amount);
+        }
+
     }
 }
 
