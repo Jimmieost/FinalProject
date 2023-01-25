@@ -2,8 +2,8 @@
 
 
 <h1>Shoppinglist</h1>
-
-<input class="inputField" placeholder="Add item" @bind="_inputValue" />
+<div class="whole-page">
+<input  class="inputField" placeholder="Add item" @bind="_inputValue" />
 <button class="add-button" @onclick="AddToList">Add to list</button>
 
 <div class="shoppingList">
@@ -11,18 +11,18 @@
     <ul>
         @foreach (var toBuy in shoppingList)
         {
-                            <li>
-                                <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneList.Add(toBuy))" />
-                                <input type="text" @bind="toBuy.Title" />
+            <li>
+                <input class="test" type="checkbox" @bind="toBuy.IsDone"  @onclick="@(() => IsDoneList.Add(toBuy))" />
+                <input type="text" @bind="toBuy.Title" />
 
-                                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
-                                <p class="amount"> @toBuy.Amount </p>
-                                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
-                                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
-                            </li>
+                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
+                <p class="amount"> @toBuy.Amount </p>
+                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
+                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
+            </li>
         }
     </ul>
-</div> 
+</div>
 
 <h3>In cart</h3>
 <ul>
@@ -40,7 +40,7 @@
     }
 </ul>
 
-
+</div>
 
 @code
 {
