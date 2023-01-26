@@ -12,7 +12,7 @@
         @foreach (var toBuy in shoppingList)
         {
             <li>
-                <input class="test" type="checkbox" @bind="toBuy.IsDone"  @onclick="@(() => IsDoneList.Add(toBuy))" />
+                    <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
                 <input type="text" @bind="toBuy.Title" />
 
                 <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
@@ -34,7 +34,9 @@
                 @toBuy.Amount
                 @toBuy.Title
             </p>
-            <button class="removeButton" @onclick="@(() => IsDoneList.Remove(toBuy))"> X </button>
+                <button class="removeButton" @onclick="@(() => RemoveFromCart(toBuy))"> X </button>
+
+            @*<button class="removeButton" @onclick="@(() => IsDoneList.Remove(toBuy))"> X </button>*@
 
         </li>
     }
@@ -44,6 +46,7 @@
 
 @code
 {
+
 
 
     private List<ListItem> shoppingList = new();
@@ -56,12 +59,23 @@
     {
         if (!string.IsNullOrWhiteSpace(_inputValue))
         {
-            shoppingList.Add(new ListItem { Title = _inputValue });
+            shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
             _inputValue = string.Empty;
         }
 
 
 
+    }
+    private void RemoveFromCart(ListItem item)
+    {
+        IsDoneList.Remove(item);
+    }
+
+    private void IsDoneCheckboxClicked(ListItem item)
+    {
+        IsDoneList.Add(item);
+        shoppingList.Remove(item);
+        StateHasChanged();
     }
 
 }
