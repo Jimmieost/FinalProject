@@ -24,6 +24,7 @@
     </ul>
 </div>
 
+    @if (IsDoneList.Count > 0){
 <h3>In cart</h3>
 <ul>
     @foreach (var toBuy in IsDoneList)
@@ -35,13 +36,10 @@
                 @toBuy.Title
             </p>
                 <button class="removeButton" @onclick="@(() => RemoveFromCart(toBuy))"> X </button>
-
-            @*<button class="removeButton" @onclick="@(() => IsDoneList.Remove(toBuy))"> X </button>*@
-
         </li>
     }
 </ul>
-
+    }
 </div>
 
 @code
