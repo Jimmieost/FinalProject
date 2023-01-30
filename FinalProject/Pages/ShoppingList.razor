@@ -2,8 +2,8 @@
 
 
 <h1>Shoppinglist</h1>
-
-<input class="inputField" placeholder="Add item" @bind="_inputValue" />
+<div class="whole-page">
+<input  class="inputField" placeholder="Add item" @bind="_inputValue" />
 <button class="add-button" @onclick="AddToList">Add to list</button>
 
 <div class="shoppingList">
@@ -11,19 +11,20 @@
     <ul>
         @foreach (var toBuy in shoppingList)
         {
-                            <li>
-                                <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneList.Add(toBuy))" />
-                                <input type="text" @bind="toBuy.Title" />
+            <li>
+                    <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
+                <input type="text" @bind="toBuy.Title" />
 
-                                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
-                                <p class="amount"> @toBuy.Amount </p>
-                                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
-                                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
-                            </li>
+                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
+                <p class="amount"> @toBuy.Amount </p>
+                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
+                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
+            </li>
         }
     </ul>
-</div> 
+</div>
 
+    @if (IsDoneList.Count > 0){
 <h3>In cart</h3>
 <ul>
     @foreach (var toBuy in IsDoneList)
@@ -34,16 +35,16 @@
                 @toBuy.Amount
                 @toBuy.Title
             </p>
-            <button class="removeButton" @onclick="@(() => IsDoneList.Remove(toBuy))"> X </button>
-
+                <button class="removeButton" @onclick="@(() => RemoveFromCart(toBuy))"> X </button>
         </li>
     }
 </ul>
-
-
+    }
+</div>
 
 @code
 {
+
 
 
     private List<ListItem> shoppingList = new();
@@ -56,12 +57,23 @@
     {
         if (!string.IsNullOrWhiteSpace(_inputValue))
         {
-            shoppingList.Add(new ListItem { Title = _inputValue });
+            shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
             _inputValue = string.Empty;
         }
 
 
 
+    }
+    private void RemoveFromCart(ListItem item)
+    {
+        IsDoneList.Remove(item);
+    }
+
+    private void IsDoneCheckboxClicked(ListItem item)
+    {
+        IsDoneList.Add(item);
+        shoppingList.Remove(item);
+        StateHasChanged();
     }
 
 }
