@@ -63,7 +63,7 @@ namespace TestProject
 
             // Assert
             var amount = component.Find("p.amount").InnerHtml;
-            Assert.Equal("1", amount);
+            Assert.Equal("2", amount);
         }
 
     }
