@@ -1,4 +1,5 @@
-﻿@page "/shoppingList"
+﻿
+@page "/shoppingList"
 
 
 <h1>Shoppinglist</h1>
@@ -12,11 +13,15 @@
         @foreach (var toBuy in shoppingList)
         {
             <li>
-                    <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
+                <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
                 <input type="text" @bind="toBuy.Title" />
 
                 <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
-                <p class="amount"> @toBuy.Amount </p>
+                    @if( toBuy.Amount < 0)
+                    {
+                        toBuy.Amount = 0;
+                    }
+                    <p class="amount"> @toBuy.Amount </p>
                 <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
                 <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
             </li>
@@ -44,26 +49,26 @@
 
 @code
 {
-
-
-
     private List<ListItem> shoppingList = new();
     private List<ListItem> IsDoneList = new();
 
     private string? _inputValue { get; set; }
 
 
-    private void AddToList()
+    private void AddToList(){
+    
+            if (!string.IsNullOrWhiteSpace(_inputValue)) 
     {
-        if (!string.IsNullOrWhiteSpace(_inputValue))
-        {
-            shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
-            _inputValue = string.Empty;
-        }
-
-
-
+    shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
+    _inputValue = string.Empty;
     }
+        
+        else
+        {
+            Console.WriteLine("Only letters are allowed.");
+        }
+}
+  
     private void RemoveFromCart(ListItem item)
     {
         IsDoneList.Remove(item);
@@ -71,9 +76,15 @@
 
     private void IsDoneCheckboxClicked(ListItem item)
     {
-        IsDoneList.Add(item);
-        shoppingList.Remove(item);
-        StateHasChanged();
+        try
+        {
+            IsDoneList.Add(item);
+            shoppingList.Remove(item);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: Something went wrong..{ex.Message}");
+        }
     }
-
 }
