@@ -2,8 +2,9 @@
 
 html,
 body {
-    font-family:'Comic Sans MS';
+    font-family: 'Architects Daughter', cursive;
     background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
+    font-size:larger;
 }
 
 h1:focus {
@@ -69,6 +70,14 @@ a,
   content: "An error has occurred.";
 }
 
+ul {
+    border-style: solid;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(270deg, #9ebd13 0%, #008552 100%);
+    box-shadow: 0 8px 32px 4px rgba(0 0 0 / 0.5);
+}
+
 li {
   display: flex;
   gap: 1rem;
@@ -76,6 +85,8 @@ li {
   height: 100%;
   margin: 0;
   padding-bottom: 1rem;
+  margin-top: 1rem;
+  
 }
 
 li *,
@@ -105,8 +116,16 @@ h1 {
 
 h3{
 margin-left:25px;
-text-decoration-line:underline;
-margin-bottom:1rem;
+margin-bottom:4rem;
+margin-top: 4rem;
+}
+
+.icon {
+    background-color: transparent;
+    border-radius: 10rem;
+    border:2px solid;
+    filter:brightness(0.1);
+    
 }
 
 .inputField{

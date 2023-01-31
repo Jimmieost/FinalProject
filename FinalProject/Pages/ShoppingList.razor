@@ -8,7 +8,7 @@
 <button class="add-button" @onclick="AddToList">Add to list</button>
 
 <div class="shoppingList">
-    <h3>To Buy</h3>
+    <h3>To Buy <span class="icon">💲</span></h3>
     <ul>
         @foreach (var toBuy in shoppingList)
         {
@@ -23,14 +23,14 @@
                     }
                     <p class="amount"> @toBuy.Amount </p>
                 <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
-                <button class="removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
+                <button class="removeButton removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
             </li>
         }
     </ul>
 </div>
 
     @if (IsDoneList.Count > 0){
-<h3>In cart</h3>
+    <h3>In cart <span class="icon">🛒</span></h3>
 <ul>
     @foreach (var toBuy in IsDoneList)
     {
