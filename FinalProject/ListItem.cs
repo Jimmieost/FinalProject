@@ -6,7 +6,7 @@
 
         public bool IsDone { get; set; }
 
-        public string? Remove { get; set; }
+        //public string? Remove { get; set; }
 
         public int Amount { get; set; }
 

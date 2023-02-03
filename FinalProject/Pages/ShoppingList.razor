@@ -1,49 +1,49 @@
-﻿
-@page "/shoppingList"
+﻿@page "/shoppingList"
 
 
 <h1>Shoppinglist</h1>
 <div class="whole-page">
-<input  class="inputField" placeholder="Add item" @bind="_inputValue" />
-<button class="add-button" @onclick="AddToList">Add to list</button>
+    <input class="inputField" placeholder="Add item" @bind="_inputValue" />
+    <button class="add-button" @onclick="AddToList">Add to list</button>
 
-<div class="shoppingList">
-    <h3>To Buy <span class="icon">💲</span></h3>
-    <ul>
-        @foreach (var toBuy in shoppingList)
-        {
-            <li>
-                <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
-                <input type="text" @bind="toBuy.Title" />
+    <div class="shoppingList">
+        <h3>To Buy <span class="icon">💲</span></h3>
+        <ul>
+            @foreach (var toBuy in shoppingList)
+            {
+                <li>
+                    <input class="test" type="checkbox" @bind="toBuy.IsDone" @onclick="@(() => IsDoneCheckboxClicked(toBuy))" />
+                    <input type="text" @bind="toBuy.Title" />
 
-                <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
-                    @if( toBuy.Amount < 0)
+                    <button class="outline" @onclick="@(() => toBuy.Amount--)"> - </button>
+                    @if (toBuy.Amount < 0)
                     {
                         toBuy.Amount = 0;
                     }
                     <p class="amount"> @toBuy.Amount </p>
-                <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
-                <button class="removeButton removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
-            </li>
-        }
-    </ul>
-</div>
+                    <button class="increment" @onclick="@(() => toBuy.Amount++)"> + </button>
+                    <button class="removeButton removeitem" @onclick="@(() => shoppingList.Remove(toBuy))"> X </button>
+                </li>
+            }
+        </ul>
+    </div>
 
-    @if (IsDoneList.Count > 0){
-    <h3>In cart <span class="icon">🛒</span></h3>
-<ul>
-    @foreach (var toBuy in IsDoneList)
+    @if (IsDoneList.Count > 0)
     {
+        <h3>In cart <span class="icon">🛒</span></h3>
+        <ul>
+            @foreach (var toBuy in IsDoneList)
+            {
 
-        <li>
-            <p>
-                @toBuy.Amount
-                @toBuy.Title
-            </p>
-                <button class="removeButton" @onclick="@(() => RemoveFromCart(toBuy))"> X </button>
-        </li>
-    }
-</ul>
+                <li>
+                    <p>
+                        @toBuy.Amount
+                        @toBuy.Title
+                    </p>
+                    <button class="removeButton" @onclick="@(() => RemoveFromCart(toBuy))"> X </button>
+                </li>
+            }
+        </ul>
     }
 </div>
 
@@ -55,20 +55,20 @@
     private string? _inputValue { get; set; }
 
 
-    private void AddToList(){
-    
-            if (!string.IsNullOrWhiteSpace(_inputValue)) 
+    private void AddToList()
     {
-    shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
-    _inputValue = string.Empty;
-    }
-        
+        if (!string.IsNullOrWhiteSpace(_inputValue))
+        {
+            shoppingList.Add(new ListItem { Title = _inputValue, Amount = 1 });
+            _inputValue = string.Empty;
+        }
+
         else
         {
             Console.WriteLine("Only letters are allowed.");
         }
-}
-  
+    }
+
     private void RemoveFromCart(ListItem item)
     {
         IsDoneList.Remove(item);
